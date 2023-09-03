@@ -7,6 +7,8 @@ const defaultState = [
     time: new Date("2023-08-05"),
     company: "Kenos Technology",
     position: "Frontend Developer",
+    offerlink: "https://kenostechnology.com",
+    offerweb: "https://kenostechnology.com",
   },
   {
     id: "2",

@@ -8,20 +8,26 @@ import {
   TableCell,
   Text,
   Title,
+  Icon,
   Button,
 } from "@tremor/react";
 import { useCalculateTime } from "../hooks/useCalculateTime";
 import { useAppSelector } from "../hooks/store";
 import { useRecordActions } from "../hooks/useRecordActions";
+import { DownloadIcon, TrashIcon } from "./Icons";
+import { useDownloadRecords } from "../hooks/useDownloadRecords";
 
 export function RecordsList() {
-  const { timeDifference } = useCalculateTime();
   const records = useAppSelector((state) => state.records);
-
+  const { timeDifference } = useCalculateTime();
+  const { downloadRecords } = useDownloadRecords();
   const { removeRecord } = useRecordActions();
 
   return (
-    <Card>
+    <Card className="max-w-full w-fit mx-auto flex flex-col">
+      <section className="ml-auto flex gap-3">
+        <Button icon={DownloadIcon} color="purple" onClick={downloadRecords} />
+      </section>
       <Title>Lista de Registros</Title>
       <Table className="mt-5">
         <TableHead>
@@ -50,13 +56,28 @@ export function RecordsList() {
                 <Text>{item.position}</Text>
               </TableCell>
               <TableCell>
-                <Text>{item.position}</Text>
+                <Text color="blue">
+                  <a target="_blank" href={`${item.offerlink}`}>
+                    {item.offerlink}
+                  </a>
+                </Text>
               </TableCell>
               <TableCell>
-                <Text>{item.position}</Text>
+                <Text color="blue">
+                  {" "}
+                  <a target="_blank" href={`${item.offerweb}`}>
+                    {item.offerweb}
+                  </a>
+                </Text>
               </TableCell>
               <TableCell>
-                <Button onClick={() => removeRecord(item.id)}></Button>
+                <Icon
+                  className="cursor-pointer"
+                  tooltip="Borrar registro"
+                  color="red"
+                  onClick={() => removeRecord(item.id)}
+                  icon={TrashIcon}
+                ></Icon>
               </TableCell>
             </TableRow>
           ))}

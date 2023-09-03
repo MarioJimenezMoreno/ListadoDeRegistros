@@ -5,8 +5,17 @@ import { useAppDispatch } from "./store";
 export const useRecordActions = () => {
   const dispatch = useAppDispatch();
 
-  const addRecord = ({ id, time, company, position }: RecordWithId) => {
-    dispatch(addNewRecord({ id, time, company, position }));
+  const addRecord = ({
+    id,
+    time,
+    company,
+    position,
+    offerlink,
+    offerweb,
+  }: RecordWithId) => {
+    dispatch(
+      addNewRecord({ id, time, company, position, offerlink, offerweb })
+    );
   };
 
   const removeRecord = (id: RecordId) => {

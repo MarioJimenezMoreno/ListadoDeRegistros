@@ -2,6 +2,8 @@ export interface Record {
   time: string;
   position: string;
   company: string;
+  offerlink: string;
+  offerweb: string;
 }
 
 export type RecordId = string;
