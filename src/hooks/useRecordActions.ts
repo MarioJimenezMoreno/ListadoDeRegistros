@@ -1,4 +1,8 @@
-import { deleteRecordById, addNewRecord } from "../store/records/slice";
+import {
+  deleteRecordById,
+  addNewRecord,
+  editExistingRecord,
+} from "../store/records/slice";
 import { RecordId, RecordWithId } from "../types";
 import { useAppDispatch } from "./store";
 
@@ -11,15 +15,19 @@ export const useRecordActions = () => {
     company,
     position,
     offerlink,
-    offerweb,
+    companyweb,
   }: RecordWithId) => {
     dispatch(
-      addNewRecord({ id, time, company, position, offerlink, offerweb })
+      addNewRecord({ id, time, company, position, offerlink, companyweb })
     );
   };
 
   const removeRecord = (id: RecordId) => {
     dispatch(deleteRecordById(id));
   };
-  return { addRecord, removeRecord };
+
+  const editRecord = (id: RecordId) => {
+    dispatch(editExistingRecord(id));
+  };
+  return { addRecord, removeRecord, editRecord };
 };

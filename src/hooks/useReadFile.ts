@@ -3,6 +3,7 @@ import { RecordWithId } from "../types";
 
 export const useReadFile = () => {
   const [fileContent, setFileContent] = useState<RecordWithId[]>([]);
+  const [requestState, setRequestState] = useState<boolean | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
@@ -14,8 +15,9 @@ export const useReadFile = () => {
         try {
           const content = JSON.parse(e.target?.result as string);
           setFileContent(content);
+          setRequestState(true);
         } catch {
-          console.log("Bad Request");
+          setRequestState(false);
         }
       };
 
@@ -25,5 +27,11 @@ export const useReadFile = () => {
     }
   };
 
-  return { fileContent, handleFileChange };
+  return {
+    fileContent,
+    setFileContent,
+    handleFileChange,
+    requestState,
+    setRequestState,
+  };
 };

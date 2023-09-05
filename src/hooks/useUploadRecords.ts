@@ -1,11 +1,10 @@
-import { useReadFile } from "./useReadFile";
+import { RecordWithId } from "../types";
 import { useRecordActions } from "./useRecordActions";
 
 export const useUploadRecords = () => {
-  const { fileContent } = useReadFile();
   const { addRecord } = useRecordActions();
 
-  function uploadRecords() {
+  function uploadRecords(fileContent: RecordWithId[]) {
     fileContent.forEach((e) => {
       addRecord(e);
     });

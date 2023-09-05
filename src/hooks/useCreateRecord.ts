@@ -26,13 +26,13 @@ export const useCreateRecord = () => {
     const company = formData.get("company") as string;
     const position = formData.get("position") as string;
     const offerlink = formData.get("offerlink") as string;
-    const offerweb = formData.get("offerweb") as string;
+    const companyweb = formData.get("companyweb") as string;
 
     if (!time || !company || !position) {
       setResult("missing");
     }
 
-    addRecord({ id, time, company, position, offerlink, offerweb });
+    addRecord({ id, time, company, position, offerlink, companyweb });
     setResult("completed");
     form.reset();
   };

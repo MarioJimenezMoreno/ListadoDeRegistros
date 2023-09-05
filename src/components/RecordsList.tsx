@@ -14,7 +14,7 @@ import {
 import { useCalculateTime } from "../hooks/useCalculateTime";
 import { useAppSelector } from "../hooks/store";
 import { useRecordActions } from "../hooks/useRecordActions";
-import { DownloadIcon, TrashIcon } from "./Icons";
+import { DownloadIcon, TrashIcon, EditIcon } from "./Icons";
 import { useDownloadRecords } from "../hooks/useDownloadRecords";
 
 export function RecordsList() {
@@ -24,19 +24,20 @@ export function RecordsList() {
   const { removeRecord } = useRecordActions();
 
   return (
-    <Card className="max-w-full w-fit mx-auto flex flex-col">
-      <section className="ml-auto flex gap-3">
+    <Card className="max-w-full w-fit mt-5 mr-auto flex flex-col">
+      <section className="flex justify-between gap-3">
+        <Title>Lista de Registros</Title>
         <Button icon={DownloadIcon} color="purple" onClick={downloadRecords} />
       </section>
-      <Title>Lista de Registros</Title>
+
       <Table className="mt-5">
         <TableHead>
           <TableRow>
             <TableHeaderCell>Fecha de envío</TableHeaderCell>
-            <TableHeaderCell>Posición</TableHeaderCell>
             <TableHeaderCell>Empresa</TableHeaderCell>
+            <TableHeaderCell>Web Empresa</TableHeaderCell>
+            <TableHeaderCell>Posición</TableHeaderCell>
             <TableHeaderCell>Link Oferta</TableHeaderCell>
-            <TableHeaderCell>Link Web</TableHeaderCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -53,6 +54,14 @@ export function RecordsList() {
                 <Text>{item.company}</Text>
               </TableCell>
               <TableCell>
+                <Text color="blue">
+                  {" "}
+                  <a target="_blank" href={`${item.companyweb}`}>
+                    {item.companyweb}
+                  </a>
+                </Text>
+              </TableCell>
+              <TableCell>
                 <Text>{item.position}</Text>
               </TableCell>
               <TableCell>
@@ -63,14 +72,13 @@ export function RecordsList() {
                 </Text>
               </TableCell>
               <TableCell>
-                <Text color="blue">
-                  {" "}
-                  <a target="_blank" href={`${item.offerweb}`}>
-                    {item.offerweb}
-                  </a>
-                </Text>
-              </TableCell>
-              <TableCell>
+                <Icon
+                  className="cursor-pointer"
+                  tooltip="Editar registro"
+                  color="yellow"
+                  // onClick={() => editRecord(item.id)}
+                  icon={EditIcon}
+                ></Icon>
                 <Icon
                   className="cursor-pointer"
                   tooltip="Borrar registro"

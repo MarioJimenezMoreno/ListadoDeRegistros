@@ -6,15 +6,19 @@ const defaultState = [
     id: "1",
     time: new Date("2023-08-05"),
     company: "Kenos Technology",
-    position: "Frontend Developer",
-    offerlink: "https://kenostechnology.com",
-    offerweb: "https://kenostechnology.com",
+    companyweb: "https://kenostechnology.com",
+    position: ".Net C# Developer",
+    offerlink:
+      "https://trabajo.kenostechnology.com/jobs/35005724/Data-Engineer-AI/",
   },
   {
     id: "2",
     time: new Date("2023-08-24"),
     company: "TD SYNEX",
-    position: "Prácticas 16 meses",
+    companyweb: "https://es.tdsynnex.com",
+    position: "Prácticas durante 16 meses",
+    offerlink:
+      "https://synnex.wd5.myworkdayjobs.com/es/tdsynnexcareers/details/Trainee-Intern_R23486",
   },
 ];
 
@@ -31,8 +35,8 @@ export const recordsSlice = createSlice({
       state.push({ ...action.payload });
     },
     deleteRecordById: (state, action: PayloadAction<RecordId>) => {
-      const id = action.payload;
-      return state.filter((record) => record.id !== id);
+      const idToRemove = action.payload;
+      return state.filter((record) => record.id !== idToRemove);
     },
     rollbackDeletedRecord: (state, action: PayloadAction<RecordWithId>) => {
       const isRecordDefined = state.find(
@@ -43,8 +47,14 @@ export const recordsSlice = createSlice({
       }
     },
     rollbackAddedRecord: (state, action: PayloadAction<RecordWithId>) => {
-      const idToRemove = action.payload.id;
-      return state.filter((record) => record.id !== idToRemove);
+      const idToRollback = action.payload.id;
+      return state.filter((record) => record.id !== idToRollback);
+    },
+    editExistingRecord: (state, action: PayloadAction<RecordId>) => {
+      const idToEdit = action.payload;
+    },
+    resolveEditedRecord: (state, action: PayloadAction<RecordWithId>) => {
+      const idToSave = action.payload.id;
     },
   },
 });
@@ -56,4 +66,6 @@ export const {
   deleteRecordById,
   rollbackDeletedRecord,
   rollbackAddedRecord,
+  editExistingRecord,
+  resolveEditedRecord,
 } = recordsSlice.actions;
